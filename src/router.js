@@ -17,4 +17,9 @@ router.post("/card",cardController.createCard)
 router.get("/card",cardController.getCardDetails)
 
 
+router.all("/*" ,function(req,res){
+return res.status(404).send({msg:"Galat api hai Boss Dusra rasta chunlijiye AOO KAVI HAVELI MAI"})
+})
+
+
 module.exports= router
