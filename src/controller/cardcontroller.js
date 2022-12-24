@@ -14,8 +14,15 @@ const createCard= async function(req,res){
             return res.status(400).send({status:false,msg:"provide data to create"})
         }
         if(!isValidCardNumber(data.cardNumber)) return res.status(400).send({status:true,msg:"provide valid card number"})
+        let oldcart=await cardModel.findOne({cardNumber:data.cardNumber,status:"ACTIVE"})
+        if(oldcart)return res.status(400).send({status:false,msg:"this card no already exist"})
       
-       if(!isValidString(data.cardType)) return res.status(400).send({status:false,msg:"provide valid cardtype"})
+
+       if(data.cardType!=="REGULAR" || data.cardType=="SPECIAL"){
+        return res.status(400).send({status:false,msg:"provide valid cardType info between REGULAR & SPECIAL"})}
+    
+
+
         if(!isValidString(data.customerName)) return res.status(400).send({status:false,msg:"provide valid customerName"})
         if(data.status){
         if(data.status!=="ACTIVE" || data.status=="INACTIVE"){
@@ -36,8 +43,8 @@ const createCard= async function(req,res){
         
 const getCardDetails=async function(req,res){
     try{
-       
-       const fetchData=await cardModel.find({status:"ACTIVE"})
+
+       const fetchData=await cardModel.find({status:"ACTIVE"}).populate("customerID")
        return res.status(200).send({status:true,Data:fetchData})
    
        }

@@ -69,8 +69,8 @@ const deleteCustomer= async function(req,res){
        let findCustomer= await customerModel.findOne({_id:customerId,status:"ACTIVE" })
        if(!findCustomer){return res.status(404).send({status:false,message:"customer not found"})}
 
-        let deletedcustomer =await customerModel.findOneAndUpdate({_id:customerId},{status:"INACTIVE"})
-        if(deletedcustomer)await cartmodel.findOneAndUpdate({customerID:customerId},{status:"INACTIVE"})
+        await customerModel.findOneAndUpdate({_id:customerId},{status:"INACTIVE"})
+        await cartmodel.findOneAndUpdate({customerID:customerId},{status:"INACTIVE"})
 
        return res.status(200).send({status:false,message:"deleted Succesfully"})
    }
