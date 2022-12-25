@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 mongoose.set('strictQuery', true);
  mongoose
   .connect(
-    "mongodb+srv://DeeptirthaMukherjee:QYKI3k8QSKC4I7FZ@cluster1.khatgm1.mongodb.net/personal?retryWrites=true&w=majority",
+    "mongodb+srv://personal:rajmona@cluster0.xqq4wbp.mongodb.net/?retryWrites=true&w=majority",
     { UseNewUrlParser: true }
   )
   .then(() => console.log("Mongo-Db is connected"))
